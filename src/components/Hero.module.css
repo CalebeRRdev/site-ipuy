@@ -1,0 +1,214 @@
+/* src/components/Hero.module.css */
+
+/* =========================
+   HERO
+   ========================= */
+
+   :global(.hero-card) {
+    position: relative;
+  }
+  
+  :global(.hero-glow) {
+    pointer-events: none;
+    position: absolute;
+    top: -180px;
+    left: 50%;
+    width: 980px;
+    height: 520px;
+    transform: translateX(-50%);
+    border-radius: 999px;
+    background: radial-gradient(
+      circle at center,
+      color-mix(in srgb, var(--primary) 35%, transparent) 0%,
+      transparent 58%
+    );
+    opacity: 0.75;
+  }
+  
+  :global(.hero-inner) {
+    position: relative;
+    padding: 28px;
+  }
+  
+  @media (min-width: 768px) {
+    :global(.hero-inner) {
+      padding: 44px;
+    }
+  }
+  
+  :global(.hero-top) {
+    text-align: center;
+    max-width: 920px;
+    margin: 0 auto;
+  }
+  
+  :global(.hero-title) {
+    margin-top: 18px;
+    font-size: clamp(2.1rem, 3.8vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+  
+  :global(.hero-verse) {
+    margin: 18px auto 0 auto;
+    max-width: 62ch;
+    color: var(--muted);
+    font-size: 17px;
+    line-height: 1.75;
+  }
+  
+  :global(.hero-ref) {
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 800;
+    color: color-mix(in srgb, var(--text) 78%, transparent);
+  }
+  
+  :global(.hero-divider) {
+    margin: 28px 0 18px;
+  }
+  
+  /* grid base */
+  :global(.hero-grid) {
+    display: grid;
+    gap: 14px;
+  }
+  
+  /* quando é só 1 card centralizado */
+  :global(.hero-grid--single) {
+    max-width: 980px;
+    margin: 0 auto;
+  }
+  
+  /* mini-card */
+  :global(.hero-mini) {
+    padding: 18px;
+  }
+  
+  :global(.hero-mini .kicker) {
+    margin: 0;
+  }
+  
+  :global(.hero-mini-title) {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+  }
+  
+  :global(.hero-mini-text) {
+    margin-top: 8px;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  
+  /* destaque final */
+  :global(.hero-mini-hint) {
+    margin-top: 12px;
+    font-size: 13px;
+    font-weight: 800;
+    color: color-mix(in srgb, var(--text) 78%, transparent);
+    line-height: 1.6;
+  }
+  
+  :global(.hero-space) {
+    height: 14px;
+  }
+  
+  /* Texto em blocos com espaçamento bonito */
+  :global(.hero-copy) {
+    display: grid;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  
+  /* =========================
+     HERO — mensagem + imagem à direita
+     (layout do seu Hero.tsx atual)
+     ========================= */
+  
+  :global(.hero-welcome) {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  
+  @media (min-width: 900px) {
+    :global(.hero-welcome) {
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 18px;
+      align-items: center;
+    }
+  }
+  
+  :global(.hero-welcome__copy) {
+    min-width: 0;
+  }
+  
+  /* container da imagem */
+  :global(.hero-welcome__media) {
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--cardSolid) 86%, transparent);
+    box-shadow: var(--shadow);
+  }
+  
+  /* imagem grande */
+  :global(.hero-pastor) {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: center 20%;
+  }
+  
+  /* assinatura simples */
+  :global(.hero-sign--inline) {
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  :global(.hero-sign-meta) {
+    min-width: 0;
+    display: grid;
+    gap: 2px;
+  }
+  
+  :global(.hero-sign-name) {
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+  }
+  
+  :global(.hero-sign-role) {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--muted);
+  }
+
+  /* ✅ Logo do hero (centralizado acima do título) */
+:global(.hero-logo) {
+  display: block;
+  margin: 0 auto 10px;
+  width: min(190px, 42vw);
+  height: auto;
+
+  /* dá um “acabamento” leve */
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.08));
+  user-select: none;
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  :global(.hero-logo) {
+    width: 150px;
+    margin-bottom: 12px;
+  }
+}

@@ -1,0 +1,387 @@
+/* igreja-site/src/components/About.module.css */
+
+/* ABOUT */
+:global(.aboutBlock) { margin-top: 22px; }
+
+:global(.block-title) {
+  margin: 0 0 14px 0;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  font-size: 18px;
+}
+
+/* utilitários locais (caso não existam no globals) */
+:global(.stack) { display: grid; gap: 10px; }
+:global(.smallHint) { margin-top: 14px; font-size: 12px; }
+
+/* grid-3 (você usa no About) */
+:global(.grid-3) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 980px) {
+  :global(.grid-3) { grid-template-columns: 1fr; }
+}
+
+/* Intro */
+:global(.aboutIntroCard) {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 18px;
+  align-items: center;
+}
+@media (max-width: 900px) {
+  :global(.aboutIntroCard) { grid-template-columns: 1fr; align-items: start; }
+}
+
+:global(.aboutLogoWrap) { display: grid; place-items: center; }
+
+:global(.aboutLogo) {
+  width: 200px;
+  height: auto;
+  border-radius: 16px;
+  object-fit: contain;
+}
+
+:global(.aboutIntroText) { display: grid; gap: 10px; }
+
+/* nested soft cards */
+:global(.purposeCard .purposeInner),
+:global(.leaderCard .leaderInner) {
+  padding: 18px;
+}
+
+:global(.purposeTitle) {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 8px 0;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  font-size: 16px;
+}
+
+/* Leadership */
+:global(.leadersGrid) { align-items: stretch; }
+:global(.leaderCard) { height: 100%; }
+
+:global(.leaderCard .leaderInner) {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 14px 18px 18px;
+}
+
+:global(.leaderTitle) {
+  margin: 0 0 8px 0;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  font-size: 16px;
+}
+
+/* =========================
+   Leaders photo
+   ========================= */
+:global(.leadersPhoto) { margin: 10px 0 16px; display: grid; gap: 10px; }
+
+:global(.leadersPhotoFrame) {
+  max-width: 920px;
+  margin-inline: auto;
+}
+
+:global(.leadersPhotoBtn) {
+  width: 100%;
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+  line-height: 0;
+}
+
+:global(.leadersPhotoImg) {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  border: 0;                 /* ✅ tira a borda cinza */
+  box-shadow: var(--shadow);
+  object-fit: cover;
+  display: block;
+}
+
+:global(.leadersPhotoImg--small) {
+  max-height: 420px;
+}
+
+:global(.leadersPhotoCaption) { font-size: 12px; }
+:global(.leadersPhotoNames) { margin-top: 4px; }
+
+/* =========================
+   Congregaciones grid
+   ========================= */
+:global(.congregationsGrid) {
+  margin-top: 14px;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+@media (max-width: 900px) {
+  :global(.congregationsGrid) { grid-template-columns: 1fr; }
+}
+
+:global(.congregationCard) {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--cardSolid) 76%, transparent);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  display: grid;
+}
+
+:global(.congregationMedia) { position: relative; }
+
+:global(.congregationImgBtn) {
+  width: 100%;
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+  line-height: 0; /* ✅ remove “gap” e evita shrink estranho */
+}
+
+:global(.congregationImg) {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 0;                 /* ✅ tira borda cinza */
+  object-fit: cover;
+  aspect-ratio: 16 / 9;      /* ✅ deixa uniforme e maior */
+}
+
+:global(.congregationBody) { padding: 14px; display: grid; gap: 8px; }
+
+:global(.congregationTop) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+:global(.congregationTitle) {
+  margin: 0;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  font-size: 16px;
+}
+
+/* =========================
+   Lightbox
+   ========================= */
+:global(.lightbox) {
+  position: fixed;
+  inset: 0;
+  z-index: 10050;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+:global(.lightboxInner) {
+  width: min(1100px, 94vw);
+  max-height: 86vh;
+  border-radius: 18px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  box-shadow: 0 30px 90px rgba(0,0,0,0.40);
+}
+
+:global(.lightboxImg) {
+  width: 100%;
+  height: auto;
+  max-height: 72vh;
+  object-fit: contain;
+  display: block;
+  background: #000;
+}
+
+:global(.lightboxCaption) {
+  padding: 12px 14px;
+  border-top: 1px solid var(--border);
+  background: color-mix(in srgb, var(--cardSolid) 82%, transparent);
+}
+
+:global(.lightboxTitle) {
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+:global(.lightboxClose) {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, #fff 22%, transparent);
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+:global(.lightboxClose:hover) {
+  background: rgba(0, 0, 0, 0.48);
+}
+
+/* Reformers (mantive o que você já tinha) */
+:global(.reformersShell) {
+  margin-top: 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: color-mix(in srgb, var(--cardSolid) 76%, transparent);
+  box-shadow: var(--shadow);
+  scroll-margin-top: var(--nav-offset);
+}
+
+:global(.reformersTabs) {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 8px;
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--cardSolid) 82%, transparent);
+}
+@media (max-width: 900px) {
+  :global(.reformersTabs) { grid-template-columns: 1fr; }
+}
+
+:global(.reformersTab) {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  padding: 12px 12px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--cardSolid) 86%, transparent);
+  font-weight: 900;
+  color: var(--text);
+  cursor: pointer;
+  transition: transform 0.14s ease, background 0.14s ease, opacity 0.14s ease;
+}
+:global(.reformersTab:hover) { background: color-mix(in srgb, var(--cardSolid) 92%, transparent); }
+:global(.reformersTab:active) { transform: translateY(1px); }
+:global(.reformersTab.isActive) {
+  border-color: color-mix(in srgb, var(--primary) 35%, var(--border));
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary) 18%, transparent);
+}
+
+:global(.reformersArrows) {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-end;
+}
+@media (max-width: 900px) {
+  :global(.reformersArrows) { justify-content: flex-start; }
+}
+
+:global(.reformersArrow) {
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--cardSolid) 86%, transparent);
+  box-shadow: var(--shadow);
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--text);
+  cursor: pointer;
+  transition: transform 0.14s ease, background 0.14s ease, opacity 0.14s ease;
+}
+:global(.reformersArrow:hover) { background: color-mix(in srgb, var(--cardSolid) 92%, transparent); }
+:global(.reformersArrow:active) { transform: translateY(1px); }
+
+:global(.reformerPanel) {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 18px;
+  padding: 16px;
+  animation: panelIn 260ms cubic-bezier(0.12, 1, 0.18, 1) both;
+}
+@keyframes panelIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (max-width: 900px) {
+  :global(.reformerPanel) { grid-template-columns: 1fr; }
+}
+
+:global(.reformerMedia) {
+  display: grid;
+  place-items: start center;
+  align-content: start;
+}
+
+:global(.reformerImg) {
+  width: 220px;
+  height: 220px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--cardSolid) 86%, transparent);
+  box-shadow: var(--shadow);
+  object-fit: cover;
+}
+
+:global(.reformerBody) { display: grid; gap: 10px; align-content: start; }
+:global(.reformerMeta) { display: flex; gap: 10px; align-items: center; }
+:global(.reformerSummary) { color: var(--muted); font-size: 15px; line-height: 1.75; }
+
+:global(.reformersMoreBtn),
+:global(.reformersLessBtn) { justify-self: start; }
+
+:global(.reformerFull) { display: grid; gap: 12px; }
+:global(.detailsBody) { margin-top: 2px; display: grid; gap: 10px; }
+
+/* Instagram button (mantive o seu) */
+:global(.igBtn) {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--cardSolid) 86%, transparent),
+        color-mix(in srgb, var(--cardSolid) 68%, transparent)
+      )
+      padding-box,
+    linear-gradient(90deg, #f58529, #dd2a7b, #8134af, #515bd4) border-box;
+
+  color: var(--text);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: transform 0.14s ease, opacity 0.14s ease, filter 0.14s ease;
+}
+:global(.igBtn:hover) { transform: translateY(-1px); filter: saturate(1.08); }
+:global(.igBtn:active) { transform: translateY(0px); opacity: 0.92; }
+:global(.igBtn:focus-visible) { outline: 3px solid var(--ring); outline-offset: 3px; }
+
+:global(.igBtn--small) {
+  padding: 9px 12px;
+  font-size: 13px;
+  gap: 8px;
+}
+
+:global(.leadersTitle) {
+  text-align: center;
+  margin-bottom: 12px;
+}

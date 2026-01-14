@@ -1,0 +1,227 @@
+/* src/components/Footer.module.css */
+
+/* =========================
+   FOOTER
+   ========================= */
+
+   :global(.footer) {
+    padding: 54px 0;
+  }
+  
+  :global(.footer-card) {
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--cardSolid) 78%, transparent);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  
+  :global(.footer-inner) {
+    padding: 28px;
+  }
+  
+  @media (min-width: 768px) {
+    :global(.footer-inner) {
+      padding: 34px;
+    }
+  }
+  
+  :global(.footer-grid) {
+    display: grid;
+    gap: 22px;
+  }
+  
+  @media (min-width: 900px) {
+    :global(.footer-grid) {
+      grid-template-columns: 1fr 1.5fr 1.5fr;
+    }
+  }
+  
+  :global(.footer-title) {
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+  }
+  
+  :global(.footer-text) {
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  
+  :global(.footer-links) {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  :global(.footer-bottom) {
+    margin-top: 22px;
+    padding: 18px 28px;
+    border-top: 1px solid var(--border);
+  
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+  
+    color: var(--muted);
+    font-size: 12px;
+  
+    background: color-mix(in srgb, var(--cardSolid) 86%, transparent);
+  }
+  
+  @media (min-width: 768px) {
+    :global(.footer-bottom) {
+      padding-left: 34px;
+      padding-right: 34px;
+    }
+  }
+  
+  :global(.footer-bottom-right) {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  
+  /* =========================
+     SOCIAL BUTTONS (outline -> filled on hover)
+     Use com: className="btn btn-social btn-youtube" (etc)
+     ========================= */
+  
+  :global(.btn-social) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: 2px solid transparent;
+  
+    /* defaults */
+    --social-color: var(--text);
+    --social-fill: color-mix(in srgb, var(--bg) 92%, white);
+    --social-hover-fill: var(--social-color);
+    --social-border: linear-gradient(90deg, var(--border), var(--border));
+  
+    /* camada 1 = preenchimento | camada 2 = borda */
+    background:
+      linear-gradient(var(--social-fill), var(--social-fill)) padding-box,
+      var(--social-border) border-box;
+  
+    color: var(--social-color);
+    font-weight: 900;
+    text-decoration: none;
+  
+    transition: transform 0.15s ease, filter 0.15s ease;
+    will-change: transform, filter;
+  
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  :global(.btn-social:hover) {
+    transform: translateY(-1px);
+    filter: brightness(0.98);
+  
+    /* vira “filled” no hover */
+    background:
+      linear-gradient(var(--social-hover-fill), var(--social-hover-fill)) padding-box,
+      var(--social-border) border-box;
+  
+    color: #fff;
+  }
+  
+  :global(.btn-social:focus-visible) {
+    outline: 3px solid color-mix(in srgb, var(--text) 25%, transparent);
+    outline-offset: 3px;
+  }
+  
+  :global(.social-ico) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  :global(.social-svg) {
+    width: 18px;
+    height: 18px;
+    fill: currentColor; /* IMPORTANTÍSSIMO p/ o ícone acompanhar a cor */
+  }
+  
+  /* =========================
+     BRAND THEMES
+     (o hover fill é a cor principal, e a borda mantém o gradiente)
+     ========================= */
+  
+  /* YouTube */
+  :global(.btn-social.btn-youtube) {
+    --yt-red: rgb(255 0 52);
+    --social-color: var(--yt-red);
+    --social-hover-fill: var(--yt-red);
+    --social-border: linear-gradient(90deg, var(--yt-red), #ff335f, var(--yt-red));
+  }
+  
+  /* Instagram */
+  :global(.btn-social.btn-instagram) {
+    --ig-pink: #d62976;
+    --social-color: var(--ig-pink);
+    --social-hover-fill: var(--ig-pink);
+    --social-border: linear-gradient(
+      90deg,
+      #feda75,
+      #fa7e1e,
+      #d62976,
+      #962fbf,
+      #4f5bd5
+    );
+  }
+  
+  /* Facebook */
+  :global(.btn-social.btn-facebook) {
+    --fb-blue: #1877f2;
+    --social-color: var(--fb-blue);
+    --social-hover-fill: var(--fb-blue);
+    --social-border: linear-gradient(90deg, #1877f2, #4a90ff, #1877f2);
+  }
+  
+  /* GitHub (puxando pro roxo) */
+  :global(.btn-social.btn-github) {
+    --gh-purple: #8250df;
+    --social-color: var(--gh-purple);
+    --social-hover-fill: var(--gh-purple);
+    --social-border: linear-gradient(90deg, #8250df, #b072ff, #8250df);
+  }
+  
+  /* =========================
+     CREDIT TEXT (inside GitHub button)
+     ========================= */
+  
+  :global(.credit-inline) {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  
+  /* no estado normal: um “muted” derivado da cor do botão */
+  :global(.btn-social .credit-muted) {
+    color: color-mix(in srgb, currentColor 70%, var(--muted));
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+  
+  /* no hover: vira branco mais suave */
+  :global(.btn-social:hover .credit-muted) {
+    color: color-mix(in srgb, #ffffff 78%, transparent);
+  }
+  
+  :global(.credit-strong) {
+    font-weight: 900;
+    letter-spacing: -0.01em;
+  }

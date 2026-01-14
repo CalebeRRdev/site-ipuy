@@ -1,0 +1,220 @@
+/* src/components/LatestLive.module.css */
+
+/* =========================
+   LATEST LIVE
+   ========================= */
+
+   :global(.live-grid) {
+    display: grid;
+    gap: 16px;
+  }
+  
+  /* Aqui está o principal: STRETCH para as duas colunas terem a mesma altura */
+  @media (min-width: 1240px) {
+    :global(.live-grid) {
+      grid-template-columns: 1.35fr 0.65fr;
+      align-items: stretch;
+    }
+  }
+  
+  /* Faz os cards conseguirem “esticar” corretamente */
+  :global(.live-video) {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  
+  :global(.live-side) {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  
+  /* Faz o inner ocupar 100% da altura do card */
+  :global(.live-side-inner) {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  /* Separa topo e “mais conteúdo” para ficar bonito quando estica */
+  :global(.live-side-top) {
+    display: grid;
+    gap: 10px;
+  }
+  
+  :global(.live-side-bottom) {
+    display: grid;
+    gap: 10px;
+    margin-top: 0;
+  }
+  
+  :global(.live-caption) {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 16px 18px;
+    border-top: 1px solid var(--border);
+    background: color-mix(in srgb, var(--cardSolid) 80%, transparent);
+  }
+  
+  :global(.live-caption-title) {
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+  }
+  
+  :global(.live-caption-sub) {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  
+  :global(.live-caption-actions) {
+    margin-top: 6px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  :global(.live-side-text) {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  
+  :global(.live-divider) {
+    margin: 14px 0;
+  }
+  
+  /* =========================
+     CHANNEL CARD
+     ========================= */
+  
+  :global(.yt-channel) {
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 12px 12px;
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+  }
+  
+  :global(.yt-channel-left) {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 12px;
+    align-items: center;
+  }
+  
+  :global(.yt-avatar) {
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    object-fit: cover;
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--bg) 80%, transparent);
+  }
+  
+  :global(.yt-avatar--fallback) {
+    display: block;
+  }
+  
+  :global(.yt-meta) {
+    display: grid;
+    gap: 2px;
+  }
+  
+  :global(.yt-name) {
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+  
+  :global(.yt-stats) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 800;
+  }
+  
+  :global(.yt-dot) {
+    opacity: 0.7;
+  }
+  
+  /* =========================
+     YOUTUBE BUTTON (melhor)
+     - estilo “identidade YouTube”, sem vermelho estourado
+     - ícone fica muito reconhecível
+     ========================= */
+  
+  :global(.btn-youtube) {
+    /* “vermelho YouTube” mais suave */
+    --yt-red: rgb(255 0 52);
+  
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  
+    /* estilo “Instagram-like”: branco + borda vermelha + texto vermelho */
+    background: color-mix(in srgb, var(--bg) 92%, white);
+    color: var(--yt-red);
+    border: 1px solid color-mix(in srgb, var(--yt-red) 55%, var(--border));
+  }
+  
+  :global(.btn-youtube:hover) {
+    background: var(--yt-red);
+    color: white;
+    transform: translateY(-1px);
+  }
+  
+  :global(.yt-btn-icon) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* O retângulo usa currentColor:
+     - normal: vermelho (texto vermelho)
+     - hover: branco (texto branco) */
+  :global(.btn-youtube .yt-icon-rect) {
+    fill: currentColor;
+  }
+  
+  /* O triângulo:
+     - normal: branco (play branco dentro do retângulo vermelho)
+     - hover: vermelho (play vermelho dentro do retângulo branco) */
+  :global(.btn-youtube .yt-icon-tri) {
+    fill: white;
+  }
+  
+  :global(.btn-youtube:hover .yt-icon-tri) {
+    fill: var(--yt-red);
+  }
+
+  /* garante que o botão fica por cima de qualquer overlay do card */
+  :global(.btn-playlists) {
+    position: relative;
+    z-index: 3;
+    pointer-events: auto;
+
+  /* “feel” tipo Instagram: leve pulinho */
+  transition: transform 160ms ease, filter 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+  }
+
+  :global(.btn-playlists:hover) {
+    transform: translateY(-1px);
+    filter: brightness(0.98);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  }
+
+  /* se existir algum pseudo-elemento do card cobrindo tudo, isso ajuda */
+  :global(.live-side),
+  :global(.live-side .card-inner),
+  :global(.live-side-inner) {
+    position: relative;
+  }

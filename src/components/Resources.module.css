@@ -1,0 +1,96 @@
+/* igreja-site/src/components/Resources.module.css */
+
+:global(.materialsGrid) {
+    display: grid;
+    gap: 12px;
+    margin-top: 14px;
+  }
+  
+  :global(.materialsCardInner) { padding: 14px; }
+  
+  :global(.materialsCategoryBtn) {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  
+    background: transparent;
+    border: 0;
+    padding: 0;
+  
+    cursor: pointer;
+    color: inherit;
+  
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    font-size: 16px;
+    text-align: left;
+  }
+  
+  :global(.materialsChevron) {
+    flex: 0 0 auto;
+    transform: rotate(0deg);
+    transition: transform 160ms ease;
+  }
+  :global(.materialsChevron.isOpen) { transform: rotate(180deg); }
+  
+  :global(.materialsPanel) { margin-top: 12px; }
+  :global(.materialsList) { margin-top: 6px; }
+  
+  :global(.materialsItem) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  
+  :global(.materialsTitleLink) {
+    color: inherit;
+    text-decoration: none;
+    font-weight: 700;
+    line-height: 1.5;
+    cursor: pointer;
+  }
+  :global(.materialsTitleLink:hover) { opacity: 0.85; }
+  
+  :global(.materialsTitleLink:focus-visible) {
+    outline: 3px solid var(--ring);
+    outline-offset: 3px;
+    border-radius: 10px;
+  }
+  
+  :global(.materialsActions) { display: inline-flex; gap: 8px; }
+  
+  :global(.materialsActionBtn) {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  :global(.materialsMints) { padding: 14px; display: grid; gap: 10px; }
+  
+  :global(.materialsMintsTitle) {
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    font-size: 16px;
+  }
+  
+  :global(.materialsPrimaryBtn) {
+    width: fit-content;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  @media (max-width: 520px) {
+    :global(.materialsItem) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    :global(.materialsActions) {
+      width: 100%;
+      flex-wrap: wrap;
+    }
+  }

@@ -1,0 +1,230 @@
+/* igreja-site/src/styles/globals.css */
+
+/* Scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Design tokens */
+:root {
+  --bg: #ffffff;
+  --text: #0b1220;
+  --muted: #5b6475;
+
+  --card: rgba(255, 255, 255, 0.7);
+  --cardSolid: #ffffff;
+
+  --primary: #22447a;
+  --primary-2: #057cff;
+
+  --border: rgba(10, 20, 35, 0.12);
+  --ring: rgba(5, 124, 255, 0.35);
+
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  --shadow2: 0 14px 40px rgba(0, 0, 0, 0.1);
+
+  --radius-xl: 28px;
+  --radius-lg: 24px;
+  --radius-md: 18px;
+
+  --container: 1240px;
+  --nav-h: 64px;
+
+  --nav-offset: calc(var(--nav-h) + env(safe-area-inset-top) + 12px);
+
+  --bg-art-size: min(900px, 92vw);
+  --bg-art-opacity: 0.22;
+}
+
+/* Se cair em hash, não fica escondido atrás da navbar */
+html {
+  scroll-padding-top: var(--nav-offset);
+}
+
+/* Dark mode */
+.dark {
+  --bg: #15181b;
+  --text: #eef2f7;
+  --muted: #b2bccb;
+
+  --card: rgba(27, 31, 36, 0.72);
+  --cardSolid: #1b1f24;
+
+  --primary: #57a4ff;
+  --primary-2: #89bfff;
+
+  --border: rgba(255, 255, 255, 0.14);
+  --ring: rgba(87, 164, 255, 0.35);
+
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --shadow2: 0 16px 46px rgba(0, 0, 0, 0.45);
+
+  --bg-art-opacity: 0.14;
+}
+
+/* Reset básico */
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  overflow-x: hidden;
+
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial,
+    "Apple Color Emoji", "Segoe UI Emoji";
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+
+  background: var(--bg);
+  position: relative;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+::selection {
+  background: rgba(5, 124, 255, 0.25);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3 {
+  letter-spacing: -0.02em;
+}
+h1 {
+  font-size: clamp(2rem, 3.2vw, 3.25rem);
+  line-height: 1.05;
+  margin: 0;
+}
+h2 {
+  font-size: clamp(1.6rem, 2.2vw, 2.25rem);
+  line-height: 1.15;
+  margin: 0;
+}
+p {
+  margin: 0;
+  line-height: 1.7;
+}
+
+/* Acessibilidade */
+:focus-visible {
+  outline: 3px solid var(--ring);
+  outline-offset: 3px;
+  border-radius: 12px;
+}
+
+/* Util */
+.muted {
+  color: var(--muted);
+}
+.smallHint {
+  margin-top: 14px;
+  font-size: 12px;
+}
+.text-balance {
+  text-wrap: balance;
+}
+
+/* =========================================
+   GLOBAL FIXED BACKGROUND
+   ========================================= */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+
+  background-image: url("/images/site-ipuy-background.png");
+  background-repeat: no-repeat;
+  background-position: center 18%;
+  background-size: var(--bg-art-size);
+  background-attachment: fixed;
+
+  opacity: var(--bg-art-opacity);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  background: radial-gradient(
+      1200px 700px at 10% -10%,
+      rgba(5, 124, 255, 0.14),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 600px at 95% 5%,
+      rgba(34, 68, 122, 0.12),
+      transparent 55%
+    ),
+    radial-gradient(
+      800px 500px at 40% 110%,
+      rgba(5, 124, 255, 0.08),
+      transparent 55%
+    ),
+    color-mix(in srgb, var(--bg) 84%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    background-attachment: scroll;
+  }
+}
+
+/* =========================================
+   Page reveal / Boot overlay (mantidos)
+   ========================================= */
+
+.page-reveal {
+  animation: pageReveal 980ms cubic-bezier(0.12, 1, 0.18, 1) both;
+  will-change: opacity, transform, filter;
+}
+
+@keyframes pageReveal {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.list {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 8px;
+}
+.list.compact { margin-top: 10px; gap: 6px; }
+
+.list + .stack { margin-top: 16px; }
+
+.stack { display: grid; gap: 10px; }
+
+/* Grid helpers */
+.grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 900px) {
+  .grid-3 { grid-template-columns: 1fr; }
+}

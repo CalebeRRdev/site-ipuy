@@ -1,0 +1,59 @@
+/* src/components/ThemeToggleFab.module.css */
+
+:global(.theme-fab) {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: 1000;
+  
+    width: 48px;
+    height: 48px;
+    border-radius: 999px;
+  
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--cardSolid) 78%, transparent);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: var(--shadow2);
+  
+    display: grid;
+    place-items: center;
+  
+    cursor: pointer;
+    user-select: none;
+  
+    transition: transform 0.16s ease, opacity 0.16s ease, background 0.16s ease,
+      box-shadow 0.16s ease;
+  }
+  
+  :global(.theme-fab:hover) {
+    background: color-mix(in srgb, var(--cardSolid) 88%, transparent);
+  }
+  
+  :global(.theme-fab:active) { transform: translateY(1px); }
+  
+  :global(.theme-fab:focus-visible) {
+    outline: 3px solid var(--ring);
+    outline-offset: 3px;
+  }
+  
+  :global(.theme-fab__icon) {
+    width: 22px;
+    height: 22px;
+    color: var(--text);
+    display: grid;
+    place-items: center;
+  }
+  
+  :global(.theme-fab__icon) svg {
+    width: 22px;
+    height: 22px;
+  }
+  
+  @media (min-width: 640px) {
+    :global(.theme-fab) { right: 20px; bottom: 20px; }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    :global(.theme-fab) { transition: none; }
+  }

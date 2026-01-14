@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Site IPUY — Iglesia Presbiteriana del Uruguay
 
-## Getting Started
+Site institucional da **Iglesia Presbiteriana del Uruguay (IPUY)**, feito com **Next.js (App Router)**.
 
-First, run the development server:
+**Recursos:**
+- Navegação por seções (scroll suave)
+- Seção de YouTube (última transmissão) com fallback
+- Formulário de contato com envio via SMTP (API Route)
+
+---
+
+## Stack
+- Next.js 16 (App Router)
+- TypeScript
+- CSS Modules
+- Nodemailer (rota `/api/contact`)
+
+---
+
+## Rodando localmente
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abra: http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Variáveis de ambiente
 
-## Learn More
+Crie um arquivo **`.env.local`** na raiz do projeto (não commitar).
 
-To learn more about Next.js, take a look at the following resources:
+### SMTP (formulário de contato)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Exemplo usando Gmail (App Password):
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```env
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=465
+SMTP_SECURE=true
+SMTP_USER=ipuydeluruguay@gmail.com
+SMTP_PASS=YOUR_GMAIL_APP_PASSWORD
+SMTP_FROM="IPUY Site <ipuydeluruguay@gmail.com>"
 
-## Deploy on Vercel
+# destino do formulário
+CONTACT_TO=secretaria@ipuy.org.uy
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# opcional (se você estiver usando no route.ts)
+CONTACT_CC=
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### YouTube (se aplicável)
+
+Se a rota `/api/youtube/latest` estiver configurada para buscar a última live via API, adicione também:
+
+```env
+YOUTUBE_API_KEY=YOUR_YOUTUBE_API_KEY
+YOUTUBE_CHANNEL_ID=YOUR_CHANNEL_ID
+```
+
+> Em produção (Vercel/Host), configure essas variáveis no painel do provedor. **Não** coloque no GitHub.
+
+---
+
+## Deploy
+
+Recomendado: **Vercel**
+
+1. Importe este repositório na Vercel
+2. Vá em **Project → Settings → Environment Variables** e cadastre as variáveis do `.env.local`
+3. A cada `git push` na branch `main`, a Vercel faz o deploy automaticamente
+
+---

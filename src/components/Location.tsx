@@ -229,21 +229,22 @@ export default function Location() {
           const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
           const padding = isMobile
-           ? { top: 60, right: 40, bottom: 80, left: 40 }   // mobile
+           ? { top: 60, right: 60, bottom: 90, left: 60 }   // mobile
            : { top: 70, right: 70, bottom: 70, left: 70 };  // desktop
 
-          map.fitBounds(bounds, padding);
+          map.fitBounds(bounds, { padding });
 
           google.maps.event.addListenerOnce(map, "idle", () => {
             const z = map.getZoom?.();
             if (typeof z === "number" && z > 12) map.setZoom(12);
-
-  // ✅ No mobile, traz o mapa “pro centro” (conteúdo vai mais pra direita)
-            if (isMobile) {
-              map.panBy(-80, 0);
-            } else {
-              map.panBy(120, 0);
-            }
+          
+            // mobile: não mexe
+            if (isMobile) return;
+          
+            // desktop: pan proporcional ao container (bem mais estável)
+            const w = el.clientWidth || 0;
+            const dx = Math.round(Math.min(140, Math.max(60, w * 0.12))); // 12% da largura (clamp 60–140)
+            map.panBy(dx, 0);
           });
 
           return;

@@ -241,9 +241,9 @@ export default function Location() {
 
             if (isMobile) {
               // ✅ mobile: dá um zoom-out leve (mais distante)
-              const next = Math.max(4, z - 1); // evita ficar longe demais
-              map.setZoom(next);
-              return; // não faz pan no mobile
+              const next = Math.max(6, z); // 6 é um bom "perto" pra mobile (ajuste se quiser)
+              if (next !== z) map.setZoom(next);
+              return;
             }
 
             // desktop: mantém seu clamp + pan bonito

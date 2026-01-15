@@ -226,12 +226,24 @@ export default function Location() {
             markersRef.current.push(marker);
           });
 
-          map.fitBounds(bounds, { top: 70, right: 70, bottom: 70, left: 70 });
+          const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+          const padding = isMobile
+           ? { top: 60, right: 40, bottom: 80, left: 40 }   // mobile
+           : { top: 70, right: 70, bottom: 70, left: 70 };  // desktop
+
+          map.fitBounds(bounds, padding);
 
           google.maps.event.addListenerOnce(map, "idle", () => {
             const z = map.getZoom?.();
-            if (typeof z === "number" && z > 11) map.setZoom(11);
-            map.panBy(120, 0);
+            if (typeof z === "number" && z > 12) map.setZoom(12);
+
+  // ✅ No mobile, traz o mapa “pro centro” (conteúdo vai mais pra direita)
+            if (isMobile) {
+              map.panBy(-80, 0);
+            } else {
+              map.panBy(120, 0);
+            }
           });
 
           return;

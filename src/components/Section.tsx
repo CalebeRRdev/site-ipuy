@@ -21,8 +21,8 @@ export default function Section({
   const isCenter = align === "center";
 
   return (
-    <section id={id} className="scroll-mt-24">
-      <div className={`mb-8 ${isCenter ? "text-center" : "text-left"}`}>
+    <section id={id} className="scroll-mt-24 py-10 sm:py-14 lg:py-16 last:pb-6">
+      <div className={`mb-6 sm:mb-8 ${isCenter ? "text-center" : "text-left"}`}>
         {kicker ? <p className="kicker">{kicker}</p> : null}
 
         <h2

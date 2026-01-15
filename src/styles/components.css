@@ -27,15 +27,37 @@
    }
    
    /* Seções */
+   :root {
+     /* Espaçamento entre seções (mobile primeiro) */
+     --section-y: 44px;
+   }
+
+   @media (min-width: 640px) {
+     :root {
+       --section-y: 60px;
+     }
+   }
+
+   @media (min-width: 768px) {
+     :root {
+       --section-y: 76px;
+     }
+   }
+
+   @media (min-width: 1024px) {
+     :root {
+       --section-y: 92px;
+     }
+   }
+
    .section {
-     padding: 72px 0;
+     padding-block: var(--section-y);
      scroll-margin-top: var(--nav-offset);
    }
-   
-   @media (min-width: 768px) {
-     .section {
-       padding: 92px 0;
-     }
+
+   /* Evita sobrar espaço exagerado no final da página */
+   .section:last-of-type {
+     padding-bottom: max(24px, calc(var(--section-y) - 20px));
    }
    
    /* Header de seção */
@@ -225,4 +247,3 @@
      border-bottom: 1px solid color-mix(in srgb, var(--border) 75%, transparent);
    }
    
-

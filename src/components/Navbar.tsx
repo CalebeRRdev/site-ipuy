@@ -51,25 +51,38 @@ export default function Navbar() {
       window.history.replaceState(null, "", window.location.pathname + window.location.search);
     }
 
-    // espera DOM estabilizar (menu fechando / body destravando)
+    const doScroll = (b: ScrollBehavior) => {
+      const el = document.getElementById(id) as HTMLElement | null;
+      const nav = navRef.current;
+      if (!el || !nav) return;
+
+      const navH = nav.getBoundingClientRect().height;
+      const padTop = getElPaddingTopPx(el);
+      const gap = 10;
+
+      const target =
+        el.getBoundingClientRect().top + window.scrollY + padTop - (navH + gap);
+
+      window.scrollTo({ top: Math.max(0, target), behavior: b });
+    };
+
+    // 1) primeiro scroll (bonito)
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        const el = document.getElementById(id) as HTMLElement | null;
-        const nav = navRef.current;
-        if (!el || !nav) return;
+        doScroll(behavior);
 
-        const navH = nav.getBoundingClientRect().height; // inclui safe-area pq está no height do header
-        const padTop = getElPaddingTopPx(el);
+        // 2) correção pós-layout (fonts/animations/images)
+        //    faz um "snap" sem animar pra alinhar certinho
+        window.setTimeout(() => doScroll("auto"), 450);
+        window.setTimeout(() => doScroll("auto"), 950);
 
-        const gap = 10; // “respiro” visual abaixo da navbar
-        // queremos alinhar o INÍCIO do conteúdo da seção (topo + paddingTop) logo abaixo da navbar
-        const target =
-          el.getBoundingClientRect().top + window.scrollY + padTop - (navH + gap);
-
-        window.scrollTo({
-          top: Math.max(0, target),
-          behavior,
-        });
+        // 3) quando fontes terminarem de carregar, reforça mais uma vez
+        //    (isso resolve MUITO o “primeiro clique curto”)
+        // @ts-ignore
+        const fontsReady: Promise<any> | undefined = (document as any).fonts?.ready;
+        if (fontsReady?.then) {
+          fontsReady.then(() => doScroll("auto")).catch(() => {});
+        }
       });
     });
   }
@@ -83,7 +96,7 @@ export default function Navbar() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  // ✅ Mantém --nav-h sempre sincronizado com a altura real da navbar (resolve “1º clique” desalinhado)
+  // ✅ Mantém --nav-h sempre sincronizado com a altura real da navbar
   useEffect(() => {
     const el = navRef.current;
     if (!el) return;
@@ -91,7 +104,6 @@ export default function Navbar() {
     const setNavVars = () => {
       const h = el.getBoundingClientRect().height || 0;
       document.documentElement.style.setProperty("--nav-h", `${Math.round(h)}px`);
-      // --nav-offset depende do --nav-h no CSS, então ele “se recalcula” sozinho
     };
 
     setNavVars();
@@ -118,14 +130,13 @@ export default function Navbar() {
     };
   }, [open]);
 
-  // ✅ Se entrar/recarregar com hash (#sobre etc), ajusta a posição corretamente (sem precisar refresh manual)
+  // ✅ Se entrar/recarregar com hash (#sobre etc), ajusta a posição corretamente
   useEffect(() => {
     function runHash() {
       const raw = window.location.hash || "";
       const id = raw.replace("#", "").trim();
       if (!id) return;
 
-      // espera layout/fonts assentarem um pouquinho
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           scrollToId(id, { clearHash: false, behavior: "auto" });
@@ -146,7 +157,6 @@ export default function Navbar() {
       <header ref={navRef} className="navbar" aria-label="Barra de navegação">
         <div className="navbar-blur">
           <div className="container navbar-row">
-            {/* Brand: tudo clicável */}
             <button
               type="button"
               className="brand"
@@ -170,7 +180,6 @@ export default function Navbar() {
               </span>
             </button>
 
-            {/* Nav (desktop) */}
             <nav className="navlinks" aria-label="Secciones">
               {linkHrefs.map((l) => (
                 <a
@@ -187,7 +196,6 @@ export default function Navbar() {
               ))}
             </nav>
 
-            {/* Hamburger -> X (mobile) */}
             <button
               type="button"
               className={`navburger ${open ? "is-open" : ""}`}
@@ -206,7 +214,6 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Overlay */}
       <button
         type="button"
         className={`nav-overlay ${open ? "is-open" : ""}`}
@@ -215,7 +222,6 @@ export default function Navbar() {
         tabIndex={open ? 0 : -1}
       />
 
-      {/* Drawer */}
       <aside id="mobile-nav" className={`nav-drawer ${open ? "is-open" : ""}`} aria-label="Menú">
         <div className="nav-drawer__links" role="navigation" aria-label="Secciones">
           {linkHrefs.map((l) => (

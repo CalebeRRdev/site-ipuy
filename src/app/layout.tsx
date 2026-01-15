@@ -12,20 +12,7 @@ import FaviconThemeSync from "@/components/FaviconThemeSync";
 export const metadata: Metadata = {
   title: "IPUY",
   description: "Iglesia Presbiteriana del Uruguay",
-  icons: {
-    icon: [
-      { url: "/images/favicon-light.png", type: "image/png", media: "(prefers-color-scheme: light)" },
-      { url: "/images/favicon-dark.png", type: "image/png", media: "(prefers-color-scheme: dark)" },
-    ],
-    shortcut: [
-      { url: "/images/favicon-light.png", type: "image/png", media: "(prefers-color-scheme: light)" },
-      { url: "/images/favicon-dark.png", type: "image/png", media: "(prefers-color-scheme: dark)" },
-    ],
-    apple: [
-      { url: "/images/favicon-light.png", media: "(prefers-color-scheme: light)" },
-      { url: "/images/favicon-dark.png", media: "(prefers-color-scheme: dark)" },
-    ],
-  },
+  // ❌ remove icons daqui pra não brigar com o FaviconThemeSync
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

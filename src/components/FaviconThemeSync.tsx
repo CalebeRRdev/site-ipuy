@@ -11,16 +11,25 @@ type Mode = "light" | "dark";
 function detectMode(): Mode {
   const html = document.documentElement;
 
-  // Prefer next-themes classes when present
   if (html.classList.contains("dark")) return "dark";
   if (html.classList.contains("light")) return "light";
 
-  // Fallback: system preference
   return window.matchMedia?.("(prefers-color-scheme: dark)")?.matches ? "dark" : "light";
 }
 
+function removeConflictingFavicons() {
+  const keepSelector = `[data-favicon-sync="1"]`;
+
+  const nodes = document.head.querySelectorAll<HTMLLinkElement>(
+    `link[rel="icon"], link[rel="shortcut icon"], link[rel="apple-touch-icon"]`
+  );
+
+  nodes.forEach((n) => {
+    if (!n.matches(keepSelector)) n.remove();
+  });
+}
+
 function upsertLink(rel: string, href: string, extra?: Record<string, string>) {
-  // Only manage links created/managed by this component
   const selector = `link[rel="${rel}"][data-favicon-sync="1"]`;
   let link = document.head.querySelector<HTMLLinkElement>(selector);
 
@@ -32,6 +41,7 @@ function upsertLink(rel: string, href: string, extra?: Record<string, string>) {
   }
 
   link.href = href;
+
   if (extra) {
     for (const [k, v] of Object.entries(extra)) {
       link.setAttribute(k, v);
@@ -42,12 +52,15 @@ function upsertLink(rel: string, href: string, extra?: Record<string, string>) {
 function applyFavicon(mode: Mode) {
   const href = mode === "dark" ? DARK : LIGHT;
 
+  // ✅ garante que não tem “icon” do metadata brigando
+  removeConflictingFavicons();
+
   upsertLink("icon", href, { type: "image/png" });
   upsertLink("shortcut icon", href, { type: "image/png" });
   upsertLink("apple-touch-icon", href);
 }
 
-// ✅ Apply ASAP (module evaluation) so it updates before first interaction
+// ✅ Apply ASAP (module evaluation)
 if (typeof document !== "undefined") {
   try {
     applyFavicon(detectMode());
@@ -60,18 +73,13 @@ export default function FaviconThemeSync() {
   useEffect(() => {
     const html = document.documentElement;
 
-    const apply = () => {
-      applyFavicon(detectMode());
-    };
+    const apply = () => applyFavicon(detectMode());
 
-    // Apply once on mount too
     apply();
 
-    // Watch theme class changes
     const obs = new MutationObserver(apply);
     obs.observe(html, { attributes: true, attributeFilter: ["class"] });
 
-    // Also react to OS theme changes when user uses "system"
     const mq = window.matchMedia?.("(prefers-color-scheme: dark)");
     const onMq = () => apply();
     mq?.addEventListener?.("change", onMq);

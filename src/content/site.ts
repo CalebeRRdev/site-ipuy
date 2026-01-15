@@ -117,7 +117,7 @@ export const site = {
     originText: [
       'Las iglesias presbiterianas forman parte de la familia de iglesias de teología reformada calvinista, que derivan su nombre de la palabra griega presbyteros (πρεσβύτερος), que significa literalmente "anciano".',
       "El origen del presbiterianismo se remonta a la iglesia del Nuevo Testamento (Hechos 14:23, 15:2, 4, 20:17), teniendo su principio como denominación en la Reforma Protestante del siglo 16 (agosto de 1560), más precisamente a las reformas protestantes suizas y escocesa, lideradas por personajes como Juan Calvino, Ulrico Zuinglio y Juan Knox.",
-      'El nombre "presbiteriano" viene de la forma (sistema de gobierno) en que la iglesia es administrada a través de "presbíteros", elegidos democráticamente por las comunidades de cristianos locales. Los presbíteros junto con el pastor forman una junta (consistorio) para cuidar del bienestar espiritual de los miembros. Los presbíteros pueden ser regentes (que gobiernan) y docentes (que enseñan). Estos oficiales también integran los concilios de la iglesia, que son los Presbiterios, y el conjunto de Presbiterios forman el Sínodo. Los presbíteros pueden ser regentes (que gobiernan) y docentes (que enseñan), es decir, los pastores.',
+      'El nombre "presbiteriano" viene de la forma (sistema de gobierno) en que la iglesia es administrada a través de "presbíteros", elegidos democráticamente por las comunidades de cristianos locales. Los presbíteros junto con el pastor forman una junta (consistorio) para cuidar del bienestar espiritual de los miembros. Los presbíteros se dividen en dos oficios: presbíteros regentes (ancianos gobernantes laicos, que se encargan del gobierno y la supervisión) y presbíteros docentes (los pastores ordenados, que se encargan de la enseñanza, los sacramentos y el cuidado pastoral). Estos oficiales también integran los concilios de la iglesia, que son los Presbiterios, y el conjunto de Presbiterios forman el Sínodo. Los presbíteros pueden ser regentes (que gobiernan) y docentes (que enseñan), es decir, los pastores.',
     ],
     teachingsTitle: "Entre las enseñanzas bíblicas de la Iglesia Presbiteriana están:",
     teachings: [
@@ -154,6 +154,7 @@ export const site = {
         title: "Montevideo",
         imageSrc: "/images/montevideo.jpeg",
         instagramUrl: "https://www.instagram.com/ipuyorguy/",
+        whatsappNumber: "598098421504",
         note: "Congregación en Montevideo.",
       },
       {
@@ -161,6 +162,7 @@ export const site = {
         title: "Mercedes",
         imageSrc: "/images/mercedes.jpeg",
         instagramUrl: "https://www.instagram.com/ipuymercedes?igsh=bmdnM2RhNDFpZ2J5",
+        whatsappNumber: "5547989181401",
         note: "Congregación en Mercedes.",
       },
       {
@@ -169,6 +171,7 @@ export const site = {
         imageSrc: "/images/las-piedras.jpeg",
         instagramUrl:
           "https://www.instagram.com/presbiteriana_las.piedras?igsh=MW9scTlzeHhzeWlxdA%3D%3D",
+        whatsappNumber: "598096604060",
         note: "Congregación en Las Piedras.",
       },
       {
@@ -177,6 +180,7 @@ export const site = {
         imageSrc: "/images/ciudad-de-la-costa.jpeg",
         instagramUrl:
           "https://www.instagram.com/iglesiapresbiterianadelacosta?igsh=MThkY2EwOXV1amdwaw%3D%3D",
+        whatsappNumber: "598099017367",
         note: "Congregación en Ciudad de La Costa.",
       },
     ],
@@ -286,7 +290,7 @@ Aun en 1560:
 
 - Organización de la iglesia en presbiterios, sínodos y una asamblea general, semejantes a los de Ginebra. En ese mismo año se reunió por primera vez la Asamblea General de la Iglesia de Escocia. Fueron formalmente implantados en 1567.
 
-En 1572, prójimo a la fecha que marcó la noche de S. Bartolomé, en Francia (24 de agosto) Knox sufrió un ataque de parálisis y se retiró del liderazgo de la reforma. Sin embargo, al saber de los acontecimientos de esa noche, hizo un gran esfuerzo para volver al púlpito, advirtiendo a sus compatriotas que igual destino les caería si flaquean en la lucha.
+En 1572, próximo a la fecha que marcó la noche de S. Bartolomé, en Francia (24 de agosto) Knox sufrió un ataque de parálisis y se retiró del liderazgo de la reforma. Sin embargo, al saber de los acontecimientos de esa noche, hizo un gran esfuerzo para volver al púlpito, advirtiendo a sus compatriotas que igual destino les caería si flaquean en la lucha.
 
 En la mañana del 24 de noviembre, en el lecho de muerte, estaba rodeado de nobles escoceses, y pidió a su esposa para leer 1 Corintios 15 para él, que habla de la resurrección, y alrededor de las cinco horas su última petición fue: "Lea donde yo lancé mi primera ancla", y ella leyó Juan 17, la oración sacerdotal de Cristo. Alrededor de las 22 horas, su médico le preguntó si oyó las oraciones de los presentes a su favor, al que respondió: "Quisiera Dios que ustedes y todos los hombres las oyeran como yo las oí; y a Dios alabado por este sonido celestial... La hora ha llegado”. Estas fueron las últimas palabras, entonces falleció.
 

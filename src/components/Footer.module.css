@@ -46,7 +46,7 @@
   :global(.footer-text) {
     margin-top: 10px;
     color: var(--muted);
-    font-size: 14px;
+    font-size: 15px;
     line-height: 1.7;
   }
   
@@ -69,7 +69,7 @@
     justify-content: space-between;
   
     color: var(--muted);
-    font-size: 12px;
+    font-size: 14px;
   
     background: color-mix(in srgb, var(--cardSolid) 86%, transparent);
   }

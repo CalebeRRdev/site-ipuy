@@ -233,7 +233,7 @@ export default function Resources() {
             </div>
 
             <p className="muted smallHint">
-              Tip: puedes abrir el PDF o descargarlo directamente.
+              <strong>Tip:</strong><br></br> puedes abrir el PDF o descargarlo directamente.
             </p>
           </div>
         </div>

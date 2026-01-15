@@ -3,13 +3,27 @@
 /* Scroll */
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--nav-offset);
+}
+
+/* Tipografia base do site (escala tudo de forma consistente) */
+html {
+  font-size: 17px; /* era ~16px padrão do navegador */
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 18px;
+  }
 }
 
 /* Design tokens */
 :root {
   --bg: #ffffff;
   --text: #0b1220;
-  --muted: #5b6475;
+
+  /* ✅ mais contraste no tema claro */
+  --muted: #3f495b;
 
   --card: rgba(255, 255, 255, 0.7);
   --cardSolid: #ffffff;
@@ -29,16 +43,15 @@ html {
 
   --container: 1240px;
   --nav-h: 64px;
-
   --nav-offset: calc(var(--nav-h) + env(safe-area-inset-top) + 12px);
 
   --bg-art-size: min(900px, 92vw);
   --bg-art-opacity: 0.22;
-}
 
-/* Se cair em hash, não fica escondido atrás da navbar */
-html {
-  scroll-padding-top: var(--nav-offset);
+  /* ✅ escala tipográfica (em rem, acompanha html font-size) */
+  --fs-body: 1.02rem;   /* corpo */
+  --fs-small: 1rem;  /* tips/hints */
+  --fs-kicker: 0.85rem; /* kicker */
 }
 
 /* Dark mode */
@@ -65,7 +78,9 @@ html {
 /* Reset básico */
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
+
 html,
 body {
   height: 100%;
@@ -73,7 +88,6 @@ body {
 
 body {
   margin: 0;
-  color: var(--text);
   overflow-x: hidden;
 
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
@@ -84,12 +98,14 @@ body {
   text-rendering: optimizeLegibility;
 
   background: var(--bg);
+  color: var(--text);
+
+  /* ✅ base do corpo */
+  font-size: var(--fs-body);
+
   position: relative;
 }
 
-* {
-  -webkit-tap-highlight-color: transparent;
-}
 ::selection {
   background: rgba(5, 124, 255, 0.25);
 }
@@ -104,19 +120,28 @@ h2,
 h3 {
   letter-spacing: -0.02em;
 }
+
 h1 {
   font-size: clamp(2rem, 3.2vw, 3.25rem);
   line-height: 1.05;
   margin: 0;
 }
+
 h2 {
   font-size: clamp(1.6rem, 2.2vw, 2.25rem);
   line-height: 1.15;
   margin: 0;
 }
+
 p {
   margin: 0;
   line-height: 1.7;
+}
+
+/* ✅ garante que textos comuns acompanhem a escala */
+p,
+li {
+  font-size: 1rem;
 }
 
 /* Acessibilidade */
@@ -130,10 +155,12 @@ p {
 .muted {
   color: var(--muted);
 }
+
 .smallHint {
   margin-top: 14px;
-  font-size: 12px;
+  font-size: var(--fs-small);
 }
+
 .text-balance {
   text-wrap: balance;
 }
@@ -190,7 +217,7 @@ body::after {
 }
 
 /* =========================================
-   Page reveal / Boot overlay (mantidos)
+   Page reveal / Boot overlay
    ========================================= */
 
 .page-reveal {
@@ -217,14 +244,28 @@ body::after {
   display: grid;
   gap: 8px;
 }
-.list.compact { margin-top: 10px; gap: 6px; }
 
-.list + .stack { margin-top: 16px; }
+.list.compact {
+  margin-top: 10px;
+  gap: 6px;
+}
 
-.stack { display: grid; gap: 10px; }
+.list + .stack {
+  margin-top: 16px;
+}
+
+.stack {
+  display: grid;
+  gap: 10px;
+}
 
 /* Grid helpers */
-.grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 @media (max-width: 900px) {
-  .grid-3 { grid-template-columns: 1fr; }
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
 }

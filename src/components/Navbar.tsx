@@ -175,8 +175,8 @@ export default function Navbar() {
               </span>
 
               <span className="brand-meta">
-                <span className="brand-title">{site.shortName}</span>
-                <span className="brand-sub">Montevideo</span>
+                {/* <span className="brand-title">{site.shortName}</span> */}
+                {/* <span className="brand-sub">Montevideo</span> */}
               </span>
             </button>
 

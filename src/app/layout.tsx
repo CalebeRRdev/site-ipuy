@@ -10,9 +10,8 @@ import ScrollRestore from "@/components/ScrollRestore";
 import FaviconThemeSync from "@/components/FaviconThemeSync";
 
 export const metadata: Metadata = {
-  title: "IPUY",
+  title: "Iglesia Presbiteriana del Uruguay - IPUY",
   description: "Iglesia Presbiteriana del Uruguay",
-  // ❌ remove icons daqui pra não brigar com o FaviconThemeSync
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

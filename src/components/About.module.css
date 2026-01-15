@@ -12,7 +12,9 @@
 
 /* utilitários locais (caso não existam no globals) */
 :global(.stack) { display: grid; gap: 10px; }
-:global(.smallHint) { margin-top: 14px; font-size: 12px; }
+
+/* ✅ NÃO travar font-size aqui (deixa o global mandar) */
+:global(.smallHint) { margin-top: 14px; font-size: 15px; color: var(--muted); }
 
 /* grid-3 (você usa no About) */
 :global(.grid-3) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -99,7 +101,7 @@
   width: 100%;
   height: auto;
   border-radius: var(--radius-lg);
-  border: 0;                 /* ✅ tira a borda cinza */
+  border: 0;
   box-shadow: var(--shadow);
   object-fit: cover;
   display: block;
@@ -109,7 +111,8 @@
   max-height: 420px;
 }
 
-:global(.leadersPhotoCaption) { font-size: 12px; }
+/* ✅ não travar em px — deixa herdar (global) */
+:global(.leadersPhotoCaption) { font-size: 15.5px; color: var(--muted); }
 :global(.leadersPhotoNames) { margin-top: 4px; }
 
 /* =========================
@@ -143,16 +146,16 @@
   border: 0;
   background: transparent;
   cursor: zoom-in;
-  line-height: 0; /* ✅ remove “gap” e evita shrink estranho */
+  line-height: 0;
 }
 
 :global(.congregationImg) {
   width: 100%;
   height: auto;
   display: block;
-  border: 0;                 /* ✅ tira borda cinza */
+  border: 0;
   object-fit: cover;
-  aspect-ratio: 16 / 9;      /* ✅ deixa uniforme e maior */
+  aspect-ratio: 16 / 9;
 }
 
 :global(.congregationBody) { padding: 14px; display: grid; gap: 8px; }
@@ -162,6 +165,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 10px;
+  flex-wrap: wrap; /* ✅ deixa quebrar se faltar espaço */
 }
 
 :global(.congregationTitle) {
@@ -169,6 +173,14 @@
   font-weight: 900;
   letter-spacing: -0.02em;
   font-size: 16px;
+}
+
+/* ✅ ações (Instagram + WhatsApp) */
+:global(.congregationActions) {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 /* =========================
@@ -235,7 +247,7 @@
   background: rgba(0, 0, 0, 0.48);
 }
 
-/* Reformers (mantive o que você já tinha) */
+/* Reformers */
 :global(.reformersShell) {
   margin-top: 14px;
   border: 1px solid var(--border);
@@ -339,7 +351,7 @@
 
 :global(.reformerBody) { display: grid; gap: 10px; align-content: start; }
 :global(.reformerMeta) { display: flex; gap: 10px; align-items: center; }
-:global(.reformerSummary) { color: var(--muted); font-size: 15px; line-height: 1.75; }
+:global(.reformerSummary) { color: var(--muted); font-size: 1rem; line-height: 1.75; }
 
 :global(.reformersMoreBtn),
 :global(.reformersLessBtn) { justify-self: start; }
@@ -347,7 +359,7 @@
 :global(.reformerFull) { display: grid; gap: 12px; }
 :global(.detailsBody) { margin-top: 2px; display: grid; gap: 10px; }
 
-/* Instagram button (mantive o seu) */
+/* Instagram button */
 :global(.igBtn) {
   position: relative;
   display: inline-flex;
@@ -376,6 +388,42 @@
 :global(.igBtn:focus-visible) { outline: 3px solid var(--ring); outline-offset: 3px; }
 
 :global(.igBtn--small) {
+  padding: 9px 12px;
+  font-size: 13px;
+  gap: 8px;
+}
+
+/* WhatsApp button */
+:global(.waBtn) {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+
+  background: linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--cardSolid) 86%, transparent),
+        color-mix(in srgb, var(--cardSolid) 68%, transparent)
+      )
+      padding-box,
+    linear-gradient(90deg, #25d366, #1da851) border-box;
+
+  color: var(--text);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: transform 0.14s ease, opacity 0.14s ease, filter 0.14s ease;
+}
+
+:global(.waBtn:hover) { transform: translateY(-1px); filter: saturate(1.08); }
+:global(.waBtn:active) { transform: translateY(0px); opacity: 0.92; }
+:global(.waBtn:focus-visible) { outline: 3px solid var(--ring); outline-offset: 3px; }
+
+:global(.waBtn--small) {
   padding: 9px 12px;
   font-size: 13px;
   gap: 8px;

@@ -93,7 +93,7 @@ export default function Contact() {
           <span className="kicker">Contacto</span>
           <h2 className="section-title">Escribinos</h2>
           <p className="section-lead">
-            Si tenés una pregunta, un pedido de oración o querés hablar con nosotros, este es el lugar.
+            Si tenés una pregunta, un pedido de oración o querés hablar con nosotros,<br></br>este es el lugar.
           </p>
         </header>
 

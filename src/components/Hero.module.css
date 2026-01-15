@@ -60,7 +60,7 @@
   
   :global(.hero-ref) {
     margin-top: 10px;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 800;
     color: color-mix(in srgb, var(--text) 78%, transparent);
   }
@@ -99,7 +99,7 @@
   
   :global(.hero-mini-text) {
     margin-top: 8px;
-    font-size: 14px;
+    font-size: 17px;
     color: var(--muted);
     line-height: 1.7;
   }
@@ -107,7 +107,7 @@
   /* destaque final */
   :global(.hero-mini-hint) {
     margin-top: 12px;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 800;
     color: color-mix(in srgb, var(--text) 78%, transparent);
     line-height: 1.6;

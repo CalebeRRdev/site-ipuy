@@ -62,13 +62,13 @@
   }
   
   :global(.live-caption-title) {
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 900;
     letter-spacing: -0.01em;
   }
   
   :global(.live-caption-sub) {
-    font-size: 13px;
+    font-size: 15px;
     color: var(--muted);
   }
   
@@ -80,7 +80,7 @@
   }
   
   :global(.live-side-text) {
-    font-size: 14px;
+    font-size: 16px;
     color: var(--muted);
     line-height: 1.7;
   }
@@ -126,7 +126,7 @@
   }
   
   :global(.yt-name) {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 900;
     letter-spacing: -0.01em;
     line-height: 1.2;
@@ -136,7 +136,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
-    font-size: 12px;
+    font-size: 13px;
     color: var(--muted);
     font-weight: 800;
   }

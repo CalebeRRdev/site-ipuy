@@ -1,96 +1,149 @@
 /* igreja-site/src/components/Resources.module.css */
 
 :global(.materialsGrid) {
-    display: grid;
-    gap: 12px;
-    margin-top: 14px;
-  }
-  
-  :global(.materialsCardInner) { padding: 14px; }
-  
-  :global(.materialsCategoryBtn) {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-  
-    background: transparent;
-    border: 0;
-    padding: 0;
-  
-    cursor: pointer;
-    color: inherit;
-  
-    font-weight: 900;
-    letter-spacing: -0.02em;
-    font-size: 16px;
-    text-align: left;
-  }
-  
-  :global(.materialsChevron) {
-    flex: 0 0 auto;
-    transform: rotate(0deg);
-    transition: transform 160ms ease;
-  }
-  :global(.materialsChevron.isOpen) { transform: rotate(180deg); }
-  
-  :global(.materialsPanel) { margin-top: 12px; }
-  :global(.materialsList) { margin-top: 6px; }
-  
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+:global(.materialsCardInner) {
+  padding: 14px;
+}
+
+/* ✅ Botão da categoria (aba) — não trava em 16px */
+:global(.materialsCategoryBtn) {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  background: transparent;
+  border: 0;
+  padding: 0;
+
+  cursor: pointer;
+  color: inherit;
+
+  font-weight: 900;
+  letter-spacing: -0.02em;
+
+  /* antes: font-size: 16px; */
+  font-size: 1rem; /* acompanha o tamanho global do site */
+  line-height: 1.35;
+  text-align: left;
+}
+
+:global(.materialsChevron) {
+  flex: 0 0 auto;
+  transform: rotate(0deg);
+  transition: transform 160ms ease;
+}
+:global(.materialsChevron.isOpen) {
+  transform: rotate(180deg);
+}
+
+:global(.materialsPanel) {
+  margin-top: 12px;
+}
+
+:global(.materialsList) {
+  margin-top: 6px;
+}
+
+/* ✅ Itens da lista (PDFs) */
+:global(.materialsItem) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* ✅ Título do PDF */
+:global(.materialsTitleLink) {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 700;
+  line-height: 1.5;
+  cursor: pointer;
+
+  /* garante que não fique maior/menor que o resto por acidente */
+  font-size: 1rem;
+}
+
+:global(.materialsTitleLink:hover) {
+  opacity: 0.85;
+}
+
+:global(.materialsTitleLink:focus-visible) {
+  outline: 3px solid var(--ring);
+  outline-offset: 3px;
+  border-radius: 10px;
+}
+
+:global(.materialsActions) {
+  display: inline-flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+:global(.materialsActionBtn) {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  /* acompanha a tipografia global */
+  font-size: 0.95rem;
+}
+
+/* ✅ Card MINTS */
+:global(.materialsMints) {
+  padding: 14px;
+  display: grid;
+  gap: 10px;
+}
+
+:global(.materialsMintsTitle) {
+  font-weight: 900;
+  letter-spacing: -0.02em;
+
+  /* antes: 16px */
+  font-size: 1rem;
+}
+
+:global(.materialsPrimaryBtn) {
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ✅ melhora mobile */
+@media (max-width: 720px) {
   :global(.materialsItem) {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
+    align-items: flex-start;
+    flex-direction: column;
   }
-  
-  :global(.materialsTitleLink) {
-    color: inherit;
-    text-decoration: none;
-    font-weight: 700;
-    line-height: 1.5;
-    cursor: pointer;
+
+  :global(.materialsActions) {
+    width: 100%;
   }
-  :global(.materialsTitleLink:hover) { opacity: 0.85; }
-  
-  :global(.materialsTitleLink:focus-visible) {
-    outline: 3px solid var(--ring);
-    outline-offset: 3px;
-    border-radius: 10px;
-  }
-  
-  :global(.materialsActions) { display: inline-flex; gap: 8px; }
-  
+
   :global(.materialsActionBtn) {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-  
-  :global(.materialsMints) { padding: 14px; display: grid; gap: 10px; }
-  
-  :global(.materialsMintsTitle) {
-    font-weight: 900;
-    letter-spacing: -0.02em;
-    font-size: 16px;
-  }
-  
-  :global(.materialsPrimaryBtn) {
     width: fit-content;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
   }
-  
-  @media (max-width: 520px) {
-    :global(.materialsItem) {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  
-    :global(.materialsActions) {
-      width: 100%;
-      flex-wrap: wrap;
-    }
+}
+
+@media (max-width: 520px) {
+  :global(.materialsActions) {
+    width: 100%;
+    gap: 10px;
   }
+
+  :global(.materialsActionBtn) {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+:global(.smallHint) { margin-top: 14px; font-size: 15px;}

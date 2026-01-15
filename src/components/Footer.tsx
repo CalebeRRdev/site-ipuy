@@ -139,11 +139,11 @@ export default function Footer() {
 
               <a
                 className="btn btn-social btn-github"
-                href="https://github.com/calebe72"
+                href="https://github.com/CalebeRRdev"
                 target="_blank"
                 rel="noreferrer"
                 aria-label="GitHub del desarrollador"
-                title="GitHub: calebe72"
+                title="GitHub: CalebeRRdev"
               >
                 <span className="social-ico" aria-hidden="true">
                   <IconGitHub className="social-svg" />

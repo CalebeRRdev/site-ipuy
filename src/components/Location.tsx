@@ -1,3 +1,4 @@
+// File: igreja-site/src/components/Location.tsx
 "use client";
 
 import "./Location.module.css";
@@ -313,7 +314,7 @@ export default function Location() {
 
           <div className="map-footer">
             <div className="map-meta">
-              <div className="map-meta-title">Tip</div>
+              <div className="map-meta-title">Tip:</div>
               <div className="map-meta-text">
                 Podés tocar un marcador para abrir esa ubicación en Google Maps.
               </div>

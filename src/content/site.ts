@@ -96,7 +96,7 @@ export const site = {
     logoImageAlt: "Iglesia Presbiteriana del Uruguay",
     intro: [
       "Te presentamos de manera breve lo que es nuestra Iglesia. Es una Iglesia de historia y tradición, que nació en la Reforma Protestante del siglo XVI y que hoy se encuentra en muchos países del mundo.",
-      "En Montevideo el trabajo presbiteriano empezó en marzo de 2009.",
+      "En Montevideo el trabajo presbiteriano empezó en abril de 2010.",
     ],
     purposesTitle: "Los propósitos de esta Iglesia son:",
     purposes: [

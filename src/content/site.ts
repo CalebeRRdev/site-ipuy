@@ -24,7 +24,7 @@ export const site = {
     phonePastor: "098421504",
   },
   youtube: {
-    featuredVideoId: "dQw4w9WgXcQ",
+    featuredVideoId: "https://www.youtube.com/watch?v=s_HbUK2xYeY",
   },
   schedule: [
     { day: "Domingo", time: "10:00", title: "Escuela Dominical" },

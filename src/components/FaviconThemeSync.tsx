@@ -6,31 +6,54 @@ import { useEffect } from "react";
 const LIGHT = "/images/favicon-light.png";
 const DARK = "/images/favicon-dark.png";
 
-function setFavicon(href: string) {
-  // remove todos os ícones existentes (evita o browser “pegar o errado”)
-  const links = Array.from(
-    document.head.querySelectorAll<HTMLLinkElement>(
-      'link[rel="icon"], link[rel="shortcut icon"], link[rel="apple-touch-icon"]'
-    )
-  );
-  links.forEach((l) => l.parentNode?.removeChild(l));
+type Mode = "light" | "dark";
 
-  // cria os 3 padrões
-  const icon = document.createElement("link");
-  icon.rel = "icon";
-  icon.href = href;
-  icon.type = "image/png";
+function detectMode(): Mode {
+  const html = document.documentElement;
 
-  const shortcut = document.createElement("link");
-  shortcut.rel = "shortcut icon";
-  shortcut.href = href;
-  shortcut.type = "image/png";
+  // Prefer next-themes classes when present
+  if (html.classList.contains("dark")) return "dark";
+  if (html.classList.contains("light")) return "light";
 
-  const apple = document.createElement("link");
-  apple.rel = "apple-touch-icon";
-  apple.href = href;
+  // Fallback: system preference
+  return window.matchMedia?.("(prefers-color-scheme: dark)")?.matches ? "dark" : "light";
+}
 
-  document.head.append(icon, shortcut, apple);
+function upsertLink(rel: string, href: string, extra?: Record<string, string>) {
+  // Only manage links created/managed by this component
+  const selector = `link[rel="${rel}"][data-favicon-sync="1"]`;
+  let link = document.head.querySelector<HTMLLinkElement>(selector);
+
+  if (!link) {
+    link = document.createElement("link");
+    link.rel = rel;
+    link.setAttribute("data-favicon-sync", "1");
+    document.head.appendChild(link);
+  }
+
+  link.href = href;
+  if (extra) {
+    for (const [k, v] of Object.entries(extra)) {
+      link.setAttribute(k, v);
+    }
+  }
+}
+
+function applyFavicon(mode: Mode) {
+  const href = mode === "dark" ? DARK : LIGHT;
+
+  upsertLink("icon", href, { type: "image/png" });
+  upsertLink("shortcut icon", href, { type: "image/png" });
+  upsertLink("apple-touch-icon", href);
+}
+
+// ✅ Apply ASAP (module evaluation) so it updates before first interaction
+if (typeof document !== "undefined") {
+  try {
+    applyFavicon(detectMode());
+  } catch {
+    // ignore
+  }
 }
 
 export default function FaviconThemeSync() {
@@ -38,17 +61,25 @@ export default function FaviconThemeSync() {
     const html = document.documentElement;
 
     const apply = () => {
-      const isDark = html.classList.contains("dark");
-      setFavicon(isDark ? DARK : LIGHT);
+      applyFavicon(detectMode());
     };
 
+    // Apply once on mount too
     apply();
 
-    // observa mudanças de classe (quando você clica no toggle)
+    // Watch theme class changes
     const obs = new MutationObserver(apply);
     obs.observe(html, { attributes: true, attributeFilter: ["class"] });
 
-    return () => obs.disconnect();
+    // Also react to OS theme changes when user uses "system"
+    const mq = window.matchMedia?.("(prefers-color-scheme: dark)");
+    const onMq = () => apply();
+    mq?.addEventListener?.("change", onMq);
+
+    return () => {
+      obs.disconnect();
+      mq?.removeEventListener?.("change", onMq);
+    };
   }, []);
 
   return null;

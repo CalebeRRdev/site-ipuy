@@ -1,24 +1,14 @@
 /* src/components/Navbar.module.css */
 
-:global(:root) {
-  --scroll-offset: calc(var(--nav-h) + env(safe-area-inset-top) + 10px);
-
-  /* Drawer vars */
-  --drawer-bg-alpha: 0.86;
-  --overlay-alpha: 0.22;
-  --drawer-top-gap: 10px;
-  --drawer-radius: 18px;
-}
-
-/* offset global para anchors (fallback) */
+/* Navbar.module.css */
 :global(html) {
   scroll-behavior: smooth;
-  scroll-padding-top: var(--scroll-offset, 88px);
+  scroll-padding-top: var(--nav-offset);
 }
 
-/* aplica offset só nas seções */
+/* (opcional) se quiser manter âncoras genéricas também */
 :global(section[id]) {
-  scroll-margin-top: var(--scroll-offset, 88px);
+  scroll-margin-top: var(--nav-offset);
 }
 
 :global(.navbar) {

@@ -83,6 +83,32 @@ export default function Navbar() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
+  // ✅ Mantém --nav-h sempre sincronizado com a altura real da navbar (resolve “1º clique” desalinhado)
+  useEffect(() => {
+    const el = navRef.current;
+    if (!el) return;
+
+    const setNavVars = () => {
+      const h = el.getBoundingClientRect().height || 0;
+      document.documentElement.style.setProperty("--nav-h", `${Math.round(h)}px`);
+      // --nav-offset depende do --nav-h no CSS, então ele “se recalcula” sozinho
+    };
+
+    setNavVars();
+
+    const ro = new ResizeObserver(setNavVars);
+    ro.observe(el);
+
+    window.addEventListener("resize", setNavVars);
+    window.addEventListener("load", setNavVars);
+
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", setNavVars);
+      window.removeEventListener("load", setNavVars);
+    };
+  }, []);
+
   // trava/destrava scroll do body
   useEffect(() => {
     const prev = document.body.style.overflow;

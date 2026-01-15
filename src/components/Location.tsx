@@ -226,26 +226,33 @@ export default function Location() {
             markersRef.current.push(marker);
           });
 
-          const isMobile = window.matchMedia("(max-width: 768px)").matches;
+            const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
-          const padding = isMobile
-           ? { top: 60, right: 60, bottom: 90, left: 60 }   // mobile
-           : { top: 70, right: 70, bottom: 70, left: 70 };  // desktop
+            const padding = isMobile
+            ? { top: 60, right: 60, bottom: 90, left: 60 }
+            : { top: 70, right: 70, bottom: 70, left: 70 };
 
-          map.fitBounds(bounds, { padding });
+            // ✅ correto:
+            map.fitBounds(bounds, padding);
 
-          google.maps.event.addListenerOnce(map, "idle", () => {
+            google.maps.event.addListenerOnce(map, "idle", () => {
             const z = map.getZoom?.();
-            if (typeof z === "number" && z > 12) map.setZoom(12);
-          
-            // mobile: não mexe
-            if (isMobile) return;
-          
-            // desktop: pan proporcional ao container (bem mais estável)
+            if (typeof z !== "number") return;
+
+            if (isMobile) {
+              // ✅ mobile: dá um zoom-out leve (mais distante)
+              const next = Math.max(4, z - 1); // evita ficar longe demais
+              map.setZoom(next);
+              return; // não faz pan no mobile
+            }
+
+            // desktop: mantém seu clamp + pan bonito
+            if (z > 12) map.setZoom(12);
+
             const w = el.clientWidth || 0;
-            const dx = Math.round(Math.min(140, Math.max(60, w * 0.12))); // 12% da largura (clamp 60–140)
+            const dx = Math.round(Math.min(140, Math.max(60, w * 0.12)));
             map.panBy(dx, 0);
-          });
+            });
 
           return;
         }

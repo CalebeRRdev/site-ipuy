@@ -230,7 +230,7 @@ export default function Location() {
 
           google.maps.event.addListenerOnce(map, "idle", () => {
             const z = map.getZoom?.();
-            if (typeof z === "number" && z > 10) map.setZoom(10);
+            if (typeof z === "number" && z > 11) map.setZoom(11);
             map.panBy(120, 0);
           });
 

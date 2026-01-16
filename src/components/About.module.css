@@ -433,3 +433,14 @@
   text-align: center;
   margin-bottom: 12px;
 }
+
+:global(p),
+:global(li) {
+  text-align: justify;
+  text-justify: inter-word;
+
+  /* não cortar palavras */
+  hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+}

@@ -212,3 +212,25 @@
     margin-bottom: 12px;
   }
 }
+
+/* Empurra o hero pra não ficar “atrás” da navbar */
+:global(.hero-card) {
+  margin-top: 60px;
+}
+
+@media (min-width: 768px) {
+  :global(.hero-card) {
+    margin-top: 50px;
+  }
+}
+
+:global(p),
+:global(li) {
+  text-align: justify;
+  text-justify: inter-word;
+
+  /* não cortar palavras */
+  hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+}

@@ -139,7 +139,7 @@ export default function Footer() {
 
               <a
                 className="btn btn-social btn-github"
-                href="https://github.com/CalebeRRdev"
+                // href="https://github.com/CalebeRRdev"
                 target="_blank"
                 rel="noreferrer"
                 aria-label="GitHub del desarrollador"

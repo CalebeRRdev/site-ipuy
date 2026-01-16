@@ -22,6 +22,7 @@ type ApiPayload =
         title: string;
         publishedAt: string;
         thumbnailUrl: string;
+        embeddable: boolean;
       };
     }
   | { ok: false; error: string; channel?: any; latest?: any };
@@ -49,6 +50,7 @@ function formatDate(iso: string) {
 }
 
 export default function LatestLive() {
+  // ✅ fallback “seguro”: ideal ser uma live que EMBED funciona
   const fallbackVideoId = site.youtube.featuredVideoId;
 
   const [data, setData] = useState<ApiPayload | null>(null);
@@ -77,34 +79,35 @@ export default function LatestLive() {
     return () => ac.abort();
   }, []);
 
-  const videoId =
-    data && "ok" in data && data.ok ? data.latest.videoId : fallbackVideoId;
+  const apiOk = data && "ok" in data && data.ok;
+  const apiVideoId = apiOk ? data.latest.videoId : null;
+
+  // Se a API vier ok, usa o ID dela; senão usa fallback
+  const videoId = apiVideoId ?? fallbackVideoId;
+
+  const canEmbed = apiOk ? Boolean(data.latest.embeddable) : true;
 
   const embedSrc = useMemo(() => {
-    return `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`;
+    return `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&playsinline=1`;
   }, [videoId]);
 
-  const channelTitle =
-    data && "ok" in data && data.ok
-      ? data.channel.title
-      : "Iglesia Presbiteriana del Uruguay";
+  const channelTitle = apiOk ? data.channel.title : "Iglesia Presbiteriana del Uruguay";
+  const channelAvatar = apiOk ? data.channel.avatarUrl : "";
+  const channelSubs = apiOk ? data.channel.subscriberCount : 0;
+  const channelVideos = apiOk ? data.channel.videoCount : 0;
 
-  const channelAvatar = data && "ok" in data && data.ok ? data.channel.avatarUrl : "";
+  const latestTitle = apiOk ? data.latest.title : "Transmisión más reciente";
+  const latestDate = apiOk ? formatDate(data.latest.publishedAt) : "";
 
-  const channelSubs = data && "ok" in data && data.ok ? data.channel.subscriberCount : 0;
-
-  const channelVideos = data && "ok" in data && data.ok ? data.channel.videoCount : 0;
-
-  const latestTitle =
-    data && "ok" in data && data.ok ? data.latest.title : "Transmisión más reciente";
-
-  const latestDate =
-    data && "ok" in data && data.ok ? formatDate(data.latest.publishedAt) : "";
+  const thumb =
+    apiOk && data.latest.thumbnailUrl
+      ? data.latest.thumbnailUrl
+      : `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
 
   const watchUrl = `https://www.youtube.com/watch?v=${videoId}`;
 
   const playlistsUrl =
-    data && "ok" in data && data.ok
+    apiOk
       ? `https://www.youtube.com/channel/${data.channel.id}/playlists`
       : `${site.links.youtubeChannelUrl}/playlists`;
 
@@ -121,26 +124,82 @@ export default function LatestLive() {
         </header>
 
         <div className="live-grid live-grid--big">
-          {/* Video */}
           <div className="card live-video live-video--big">
             <div className="aspect-video aspect-video--live">
-              <iframe
-                src={embedSrc}
-                title="Última transmisión"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
+              {canEmbed ? (
+                <iframe
+                  key={videoId}
+                  src={embedSrc}
+                  title="Última transmisión"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
+              ) : (
+                // ✅ fallback sem iframe: não tem como aparecer tela cinza
+                <a
+                  href={watchUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    height: "100%",
+                    position: "relative",
+                    borderRadius: "inherit",
+                    overflow: "hidden",
+                    background: "#111",
+                  }}
+                  aria-label="Ver la transmisión en YouTube"
+                  title="Ver en YouTube"
+                >
+                  <img
+                    src={thumb}
+                    alt={latestTitle}
+                    loading="lazy"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      opacity: 0.85,
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      display: "grid",
+                      placeItems: "center",
+                      background:
+                        "linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0.55))",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: 10,
+                        padding: "12px 16px",
+                        borderRadius: 999,
+                        background: "rgba(0,0,0,0.55)",
+                        border: "1px solid rgba(255,255,255,0.18)",
+                        color: "#fff",
+                        fontWeight: 900,
+                      }}
+                    >
+                      ▶ Ver en YouTube
+                    </div>
+                  </div>
+                </a>
+              )}
             </div>
 
             <div className="live-caption">
               <div className="live-caption-title">{latestTitle}</div>
 
               <div className="live-caption-sub">
-                {latestDate
-                  ? `Publicado: ${latestDate}`
-                  : "Mirá la transmisión más reciente en YouTube."}
+                {latestDate ? `Publicado: ${latestDate}` : "Mirá la transmisión en YouTube."}
               </div>
 
               <div className="live-caption-actions">
@@ -148,10 +207,22 @@ export default function LatestLive() {
                   Ver en YouTube →
                 </a>
               </div>
+
+              {!canEmbed ? (
+                <p className="muted smallHint" style={{ marginTop: 10 }}>
+                  Esta transmisión no se puede mostrar embebida por restricciones de YouTube.
+                  Abrila con el botón “Ver en YouTube”.
+                </p>
+              ) : null}
+
+              {loading ? (
+                <p className="muted smallHint" style={{ marginTop: 10 }}>
+                  Cargando información del canal…
+                </p>
+              ) : null}
             </div>
           </div>
 
-          {/* Side panel */}
           <aside className="card live-side">
             <div className="card-inner live-side-inner">
               <div className="live-side-top">
@@ -160,12 +231,7 @@ export default function LatestLive() {
                 <div className="yt-channel">
                   <div className="yt-channel-left">
                     {channelAvatar ? (
-                      <img
-                        className="yt-avatar"
-                        src={channelAvatar}
-                        alt={channelTitle}
-                        loading="lazy"
-                      />
+                      <img className="yt-avatar" src={channelAvatar} alt={channelTitle} loading="lazy" />
                     ) : (
                       <div className="yt-avatar yt-avatar--fallback" aria-hidden="true" />
                     )}
@@ -192,14 +258,8 @@ export default function LatestLive() {
                   Encontrá predicaciones completas, transmisiones y playlists con series de prédicas.
                 </p>
 
-                <a
-                  className="btn btn-full btn-youtube"
-                  href={site.links.youtubeChannelUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                >
+                <a className="btn btn-full btn-youtube" href={site.links.youtubeChannelUrl} target="_blank" rel="noreferrer">
                   <span className="yt-btn-icon" aria-hidden="true">
-                    {/* Logo YouTube (rect + play) com hover ajustando cores */}
                     <svg viewBox="0 0 28 20" width="20" height="20" focusable="false">
                       <path
                         className="yt-icon-rect"
